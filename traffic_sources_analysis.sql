@@ -28,7 +28,7 @@ group by 1, 2;
 
 # Count single and two items orders by primary product id
 select 
-	primary_product_id, 
+    primary_product_id, 
     COUNT(Distinct CASE WHEN items_purchased=1 THEN order_id ELSE NULL END ) As count_single_item_orders, 
     COUNT(DIstinct CASE WHEN items_purchased=2 THEN order_id ELSE NULL END) As count_two_item_orders
 from orders
@@ -37,7 +37,7 @@ group by primary_product_id;
 
 # Traffic source trending
 Select 
-	-- YEAR(created_at),
+    -- YEAR(created_at),
     -- WEEK(created_at), 
     MIN(Date(created_at)) as week_start,
 	Count(distinct website_session_id) as count_of_sessions
@@ -47,7 +47,7 @@ group by YEAR(created_at), WEEK(created_at);
 
 # Bid optimization for paid traffic 
 select 
-	device_type,
+    device_type,
     count(distinct website_sessions.website_session_id) as sessions, 
     count(distinct order_id) as orders, 
     count(distinct order_id)/count(distinct website_sessions.website_session_id) as conv_rate
@@ -58,7 +58,7 @@ group by device_type;
 
 # Trending with granular segments 
 select 
-	MIN(Date(created_at)) as week_start,
+    MIN(Date(created_at)) as week_start,
     Count(Distinct CASE WHEN device_type='mobile' THEN website_session_id ELSE NULL END) As mobile_sessions, 
     Count(Distinct CASE WHEN device_type='desktop' THEN website_session_id ELSE NULL END) As desktop_sessions
 from website_sessions
